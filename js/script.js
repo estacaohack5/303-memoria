@@ -8,6 +8,20 @@ let tentativas = 0;
 
 let jogando = false;
 
+function travar(){
+    for(let carta of cartas){
+        carta.onclick = null;
+    }
+}
+
+function destravar(){
+    for(let carta of cartas){
+        if(!carta.classList.contains("correto")){
+            carta.onclick = clicar;
+        }
+    }
+}
+
 function desativar(carta){
     carta.classList.remove("ativo");
     carta.style.backgroundImage = "url('imgs/logo.png')"
@@ -25,6 +39,7 @@ function verificar(){
     if(ativos[0].style.backgroundImage === ativos[1].style.backgroundImage){
         for(let carta of ativos){
             carta.classList.remove("ativo");
+            carta.classList.add("correto");
         }
     }
     else{
@@ -34,6 +49,7 @@ function verificar(){
         tentativas++;
         erros.innerHTML = tentativas;
     }
+    destravar();
 }
 
 function clicar(){
@@ -53,6 +69,7 @@ function clicar(){
     }
 
     if(!jogando){
+        travar();
         setTimeout(verificar, 1000);
     }
 }
