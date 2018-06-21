@@ -33,4 +33,10 @@ h1{
     height: 150px;
     width: 150px;
     border: 5px dotted black;
+    background-image: url("imgs/logo.png");
+    background-size: cover;
+}
+
+.item:hover{
+    border: 5px solid black;
 }
