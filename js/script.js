@@ -3,6 +3,8 @@ const personagens = ["wilson", "willow", "wolfgang", "wx78", "woodie", "wendy", 
 const imagens = embaralhar(duplicar(personagens));
 
 const cartas = document.querySelectorAll(".item");
+const erros = document.querySelector("#erros");
+let tentativas = 0;
 
 let jogando = false;
 
@@ -29,6 +31,8 @@ function verificar(){
         for(let carta of ativos){
             desativar(carta);
         }
+        tentativas++;
+        erros.innerHTML = tentativas;
     }
 }
 
@@ -47,6 +51,7 @@ function clicar(){
     else{
         ativar(this);
     }
+
     if(!jogando){
         setTimeout(verificar, 1000);
     }
