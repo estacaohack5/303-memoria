@@ -7,72 +7,14 @@ const erros = document.querySelector("#erros");
 let tentativas = 0;
 
 let jogando = false;
+let corretos = 0;
 
-function travar(){
-    for(let carta of cartas){
-        carta.onclick = null;
-    }
+let pontuadores = [];
+if(localStorage.top3Memoria){
+    pontuadores = JSON.parse(localStorage.top3Memoria);
 }
 
-function destravar(){
-    for(let carta of cartas){
-        if(!carta.classList.contains("correto")){
-            carta.onclick = clicar;
-        }
-    }
-}
-
-function desativar(carta){
-    carta.classList.remove("ativo");
-    carta.style.backgroundImage = "url('imgs/logo.png')"
-    carta.onclick = clicar;
-}
-
-function ativar(carta){
-    carta.classList.add("ativo");
-    carta.style.backgroundImage = `url('imgs/${imagens[Number(carta.id)]}.png')`;
-    carta.onclick = null;
-}
-
-function verificar(){
-    let ativos = document.querySelectorAll(".ativo");
-    if(ativos[0].style.backgroundImage === ativos[1].style.backgroundImage){
-        for(let carta of ativos){
-            carta.classList.remove("ativo");
-            carta.classList.add("correto");
-        }
-    }
-    else{
-        for(let carta of ativos){
-            desativar(carta);
-        }
-        tentativas++;
-        erros.innerHTML = tentativas;
-    }
-    destravar();
-}
-
-function clicar(){
-    
-    if(jogando){
-        jogando = false;
-    }
-    else{
-        jogando = true;
-    }
-    
-    if(this.classList.contains("ativo")){
-        desativar(this);
-    }
-    else{
-        ativar(this);
-    }
-
-    if(!jogando){
-        travar();
-        setTimeout(verificar, 1000);
-    }
-}
+preencherPontuadores();
 
 for (let carta of cartas){
     carta.onclick = clicar;
